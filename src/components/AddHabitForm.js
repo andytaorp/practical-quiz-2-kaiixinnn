@@ -5,8 +5,10 @@ const AddHabitForm = ({ onAddHabit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddHabit(habitName);
-    setHabitName("");
+    if (habitName.trim()) {
+      onAddHabit(habitName);
+      setHabitName("");
+    }
   };
 
   return (
@@ -17,7 +19,7 @@ const AddHabitForm = ({ onAddHabit }) => {
         value={habitName}
         onChange={(e) => setHabitName(e.target.value)}
       />
-      <button type="submit">Submit</button>
+      <button type="submit">Add Habit</button> {/* Updated text */}
     </form>
   );
 };
