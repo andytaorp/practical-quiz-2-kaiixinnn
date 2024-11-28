@@ -2,28 +2,33 @@ import React, { useState } from "react";
 import AddHabitForm from "./AddHabitForm";
 import HabitList from "./HabitList";
 
-function App() {
+const App = () => {
   const [habits, setHabits] = useState([]);
 
-  const handleAddHabit = (habitName) => {
-    // TODO: write code to add a new habit here
+  const addHabit = (name) => {
+    if (!name.trim()) return; // Prevent adding empty habits
+    setHabits([...habits, { id: Date.now(), name, completed: false }]);
   };
 
-  const handleToggleHabit = (id) => {
-    // TODO: write code to toggle a habit's status
+  const toggleHabit = (id) => {
+    setHabits(
+      habits.map((habit) =>
+        habit.id === id ? { ...habit, completed: !habit.completed } : habit
+      )
+    );
   };
 
-  const handleDeleteHabit = (id) => {
-    // TODO: write code to delete a habit
+  const deleteHabit = (id) => {
+    setHabits(habits.filter((habit) => habit.id !== id));
   };
 
   return (
     <div>
       <h1>Habit Tracker</h1>
-      {/*TODO: add a form to add a new habit*/}
-      {/*TODO: add a list of habits*/}
+      <AddHabitForm onAddHabit={addHabit} />
+      <HabitList habits={habits} onToggleHabit={toggleHabit} onDeleteHabit={deleteHabit} />
     </div>
   );
-}
+};
 
 export default App;
